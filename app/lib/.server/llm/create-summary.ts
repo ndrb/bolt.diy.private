@@ -4,6 +4,7 @@ import { DEFAULT_MODEL, DEFAULT_PROVIDER, PROVIDER_LIST } from '~/utils/constant
 import { extractCurrentContext, extractPropertiesFromMessage, simplifyBoltActions } from './utils';
 import { createScopedLogger } from '~/utils/logger';
 import { LLMManager } from '~/lib/modules/llm/manager';
+import { aiTelemetryConfig } from '~/lib/ai-telemetry';
 
 const logger = createScopedLogger('create-summary');
 
@@ -170,10 +171,10 @@ Below is the chat after that:
 ---
 <new_chats>
 ${slicedMessages
-  .map((x) => {
-    return `---\n[${x.role}] ${extractTextContent(x)}\n---`;
-  })
-  .join('\n')}
+        .map((x) => {
+          return `---\n[${x.role}] ${extractTextContent(x)}\n---`;
+        })
+        .join('\n')}
 </new_chats>
 ---
 
@@ -185,6 +186,7 @@ Please provide a summary of the chat till now including the hitorical summary of
       apiKeys,
       providerSettings,
     }),
+    ...aiTelemetryConfig,
   });
 
   const response = resp.text;

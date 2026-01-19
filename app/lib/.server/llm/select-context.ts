@@ -6,6 +6,7 @@ import { DEFAULT_MODEL, DEFAULT_PROVIDER, PROVIDER_LIST } from '~/utils/constant
 import { createFilesContext, extractCurrentContext, extractPropertiesFromMessage, simplifyBoltActions } from './utils';
 import { createScopedLogger } from '~/utils/logger';
 import { LLMManager } from '~/lib/modules/llm/manager';
+import { aiTelemetryConfig } from '~/lib/ai-telemetry';
 
 // Common patterns to ignore, similar to .gitignore
 
@@ -174,6 +175,7 @@ export async function selectContext(props: {
       apiKeys,
       providerSettings,
     }),
+    ...aiTelemetryConfig,
   });
 
   const response = resp.text;

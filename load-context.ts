@@ -1,9 +1,10 @@
-import { type PlatformProxy } from 'wrangler';
+// Node.js environment context
+// This replaces the Cloudflare-specific load-context
 
-type Cloudflare = Omit<PlatformProxy<Env>, 'dispose'>;
-
-declare module '@remix-run/cloudflare' {
+declare module '@remix-run/node' {
   interface AppLoadContext {
-    cloudflare: Cloudflare;
+    env: NodeJS.ProcessEnv;
   }
 }
+
+export { };
